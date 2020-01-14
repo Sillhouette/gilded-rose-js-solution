@@ -72,6 +72,36 @@ describe("Gilded Rose", () => {
     })
   })
 
+  describe("Conjured Items", () => {
+    describe("#updateQuality", () => {
+      const name = "Laptop"
+      const sellIn = 7
+      const quality = 5
+
+      it("should have it's sellIn date decreased", () => {
+        const gildedRose = new Shop([ new ConjuredItem(name, sellIn, quality) ]);
+        items = gildedRose.updateQuality()
+
+        expect(items[0].sellIn).toEqual(sellIn - 1);
+      });
+
+      it("should have it's quality decreased by 2", () => {
+        const gildedRose = new Shop([ new ConjuredItem(name, sellIn, quality) ]);
+        items = gildedRose.updateQuality()
+
+        expect(items[0].quality).toEqual(quality - 2);
+      });
+
+      it("should not have it's quality decreased below 0", () => {
+        const lowQuality = 1
+        const gildedRose = new Shop([ new ConjuredItem(name, sellIn, lowQuality) ]);
+        items = gildedRose.updateQuality()
+
+        expect(items[0].quality).toEqual(0);
+      });
+    })
+  })
+
   describe("Shop", () => {
 
     describe("#updateQuality", () => {
