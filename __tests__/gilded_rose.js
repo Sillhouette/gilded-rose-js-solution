@@ -22,27 +22,29 @@ describe("Gilded Rose", () => {
     });
   })
 
+  describe("Sulfuras, Hand of Ragnaros", () => {
+    describe("#updateQuality", () => {
+      const sellIn = 10
+      const quality = 15
+
+      it("should not have it's sellIn date decreased", () => {
+        const gildedRose = new Shop([ new Sulfuras(sellIn, quality) ]);
+        items = gildedRose.updateQuality()
+
+        expect(items[0].sellIn).toEqual(sellIn);
+      });
+
+      it("should not have it's quality decreased", () => {
+        const gildedRose = new Shop([ new Sulfuras(sellIn, quality) ]);
+        items = gildedRose.updateQuality()
+
+        expect(items[0].quality).toEqual(quality);
+      });
+    })
+  })
+
   describe("Shop", () => {
     describe("#updateQuality", () => {
-
-      describe("Sulfuras, Hand of Ragnaros", () => {
-        const sellIn = 10
-        const quality = 15
-
-        it("should not have it's sellIn date decreased", () => {
-          const gildedRose = new Shop([ new Sulfuras(sellIn, quality) ]);
-          items = gildedRose.updateQuality()
-
-          expect(items[0].sellIn).toEqual(sellIn);
-        });
-
-        it("should not have it's quality decreased", () => {
-          const gildedRose = new Shop([ new Sulfuras(sellIn, quality) ]);
-          items = gildedRose.updateQuality()
-
-          expect(items[0].quality).toEqual(quality);
-        });
-      })
 
       describe("Aged Brie", () => {
         const sellIn = 7
