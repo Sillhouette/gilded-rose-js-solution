@@ -175,85 +175,134 @@ describe("Gilded Rose", () => {
   })
 
   describe("Normal Items", () => {
+    describe("#constructor", () => {
+      const name = "A Very Normal Item"
+      const sellIn = 7
+      const quality = 11
+      const normalItem = new NormalItem(name, sellIn, quality);
+
+      it("should be an instance of Item", () => {
+        expect(normalItem instanceof Item).toEqual(true);
+      });
+
+      it("should be an instance of ConjuredItem", () => {
+        expect(normalItem instanceof NormalItem).toEqual(true);
+      });
+
+      it("should have a name", () => {
+        expect(normalItem.name).toEqual("A Very Normal Item");
+      });
+
+      it("should have a sellIn", () => {
+        expect(normalItem.sellIn).toEqual(sellIn);
+      });
+
+      it("should have a quality", () => {
+        expect(normalItem.quality).toEqual(quality);
+      });
+    })
+
     describe("#updateQuality", () => {
       const name = "A Very Normal Item"
       const sellIn = 7
       const quality = 11
+      const normalItem = new NormalItem(name, sellIn, quality);
+      normalItem.updateQuality()
 
       it("should have it's sellIn date decreased", () => {
-        const gildedRose = new Shop([ new NormalItem(name, sellIn, quality) ]);
-        items = gildedRose.updateQuality()
-
-        expect(items[0].sellIn).toEqual(sellIn - 1);
+        expect(normalItem.sellIn).toEqual(sellIn - 1);
       });
 
       it("should have it's quality decreased", () => {
-        const gildedRose = new Shop([ new NormalItem(name, sellIn, quality) ]);
-        items = gildedRose.updateQuality()
-
-        expect(items[0].quality).toEqual(quality - 1);
+        expect(normalItem.quality).toEqual(quality - 1);
       });
 
       it("should not have it's quality decrease below 0", () => {
         const lowQuality = 0
-        const gildedRose = new Shop([ new NormalItem(name, sellIn, lowQuality) ]);
-        items = gildedRose.updateQuality()
+        const lowQualityNormalItem = new NormalItem(name, sellIn, lowQuality);
+        lowQualityNormalItem.updateQuality()
 
-        expect(items[0].quality).toEqual(lowQuality);
+        expect(lowQualityNormalItem.quality).toEqual(lowQuality);
       });
 
       it("should have its quality decreased by 2 if sellIn date is less than 0", () => {
-        const sellIn = -1
-        const gildedRose = new Shop([ new NormalItem(name, sellIn, quality) ]);
-        items = gildedRose.updateQuality()
+        const lowSellIn = -1
+        const lowSellInNormalItem = new NormalItem(name, lowSellIn, quality);
+        lowSellInNormalItem.updateQuality()
 
-        expect(items[0].quality).toEqual(quality - 2);
+        expect(lowSellInNormalItem.quality).toEqual(quality - 2);
       });
     })
   })
 
   describe("Backstage Passes", () => {
+    describe("#constructor", () => {
+      const sellIn = 2
+      const quality = 25
+      const backstagePass = new BackstagePass(sellIn, quality);
+
+      it("should be an instance of Item", () => {
+        expect(backstagePass instanceof Item).toEqual(true);
+      });
+
+      it("should be an instance of BackstagePass", () => {
+        expect(backstagePass instanceof BackstagePass).toEqual(true);
+      });
+
+      it("should have a name", () => {
+        expect(backstagePass.name).toEqual("Backstage passes to a TAFKAL80ETC concert");
+      });
+
+      it("should have a sellIn", () => {
+        expect(backstagePass.sellIn).toEqual(sellIn);
+      });
+
+      it("should have a quality", () => {
+        expect(backstagePass.quality).toEqual(quality);
+      });
+    })
+
     describe("#updateQuality", () => {
       const sellIn = 2
       const quality = 25
+      const backstagePass = new BackstagePass(sellIn, quality);
 
       it("should have it's sellIn date decreased", () => {
-        const gildedRose = new Shop([ new BackstagePass(sellIn, quality) ]);
-        items = gildedRose.updateQuality()
+        backstagePass.updateQuality()
 
-        expect(items[0].sellIn).toEqual(sellIn - 1);
+        expect(backstagePass.sellIn).toEqual(sellIn - 1);
       });
 
       it("should have it's quality increased by 1 if sellIn is greater than 10", () => {
-        const sellIn = 20
-        const gildedRose = new Shop([ new BackstagePass(sellIn, quality) ]);
-        items = gildedRose.updateQuality()
+        const highSellIn = 20
+        const backstagePass = new BackstagePass(highSellIn, quality);
+        backstagePass.updateQuality()
 
-        expect(items[0].quality).toEqual(quality + 1);
+        expect(backstagePass.quality).toEqual(quality + 1);
       });
 
-      it("should have it's quality incrased by 2 if its sellIn date is between 6 and 10", () => {
-        const sellIn = 6
-        const gildedRose = new Shop([ new BackstagePass(sellIn, quality) ]);
-        items = gildedRose.updateQuality()
+      it("should have it's quality increased by 2 if its sellIn date is between 6 and 10", () => {
+        const midSellIn = 6
+        const backstagePass = new BackstagePass(midSellIn, quality);
+        backstagePass.updateQuality()
 
-        expect(items[0].quality).toEqual(quality + 2);
+        expect(backstagePass.quality).toEqual(quality + 2);
       });
 
-      it("should have it's quality incrased by 3 if its sellIn date is between 1 and 5", () => {
-        const sellIn = 4
-        const gildedRose = new Shop([ new BackstagePass(sellIn, quality) ]);
-        items = gildedRose.updateQuality()
+      it("should have it's quality increased by 3 if its sellIn date is between 1 and 5", () => {
+        const lowSellIn = 4
+        const backstagePass = new BackstagePass(lowSellIn, quality);
+        backstagePass.updateQuality()
 
-        expect(items[0].quality).toEqual(quality + 3);
+        expect(backstagePass.quality).toEqual(quality + 3);
       });
 
       it("should have it's quality drop to 0 if sellIn is less than or equal to 0", () => {
-        const sellIn = 0
-        const gildedRose = new Shop([ new BackstagePass(sellIn, quality) ]);
-        items = gildedRose.updateQuality()
+        const zeroSellIn = 0
+        const backstagePass = new BackstagePass(zeroSellIn, quality);
+        backstagePass.updateQuality()
 
-        expect(items[0].quality).toEqual(0);
+        expect(backstagePass.quality).toEqual(0);
       });
     })
   })
