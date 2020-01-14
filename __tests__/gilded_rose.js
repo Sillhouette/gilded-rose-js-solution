@@ -2,43 +2,64 @@ const { Item, Shop, Sulfuras, AgedBrie, NormalItem, BackstagePass, ConjuredItem 
 
 describe("Gilded Rose", () => {
 
+  describe("Shop", () => {
+    describe("#updateQuality", () => {
+    })
+  })
+
   describe("Item", () => {
-    it("should have a name", () => {
-      const gildedRose = new Shop([ new Item("foo", 0, 0) ]);
+    describe("#constructor", () => {
+      it("should have a name", () => {
+        const genericItem = new Item("foo", 0, 0);
+        expect(genericItem.name).toEqual("foo");
+      });
 
-      expect(gildedRose.items[0].name).toEqual("foo");
-    });
+      it("should have a sellIn", () => {
+        const genericItem = new Item("foo", 10, 0);
+        expect(genericItem.sellIn).toEqual(10);
+      });
 
-    it("should have a sellIn", () => {
-      const gildedRose = new Shop([ new Item("foo", 10, 0) ]);
-
-      expect(gildedRose.items[0].sellIn).toEqual(10);
-    });
-
-    it("should have a quality", () => {
-      const gildedRose = new Shop([ new Item("foo", 10, 15) ]);
-
-      expect(gildedRose.items[0].quality).toEqual(15);
-    });
+      it("should have a quality", () => {
+        const genericItem = new Item("foo", 10, 15);
+        expect(genericItem.quality).toEqual(15);
+      });
+    })
   })
 
   describe("Sulfuras, Hand of Ragnaros", () => {
-    describe("#updateQuality", () => {
-      const sellIn = 10
-      const quality = 15
+    const sellIn = 10
+    const quality = 15
+    const sulfuras = new Sulfuras(sellIn, quality);
 
-      it("should not have it's sellIn date decreased", () => {
-        const gildedRose = new Shop([ new Sulfuras(sellIn, quality) ]);
-        items = gildedRose.updateQuality()
-
-        expect(items[0].sellIn).toEqual(sellIn);
+    describe("#constructor", () => {
+      it("should be an instance of Item", () => {
+        expect(sulfuras instanceof Item).toEqual(true);
       });
 
-      it("should not have it's quality decreased", () => {
-        const gildedRose = new Shop([ new Sulfuras(sellIn, quality) ]);
-        items = gildedRose.updateQuality()
+      it("should be an instance of Sulfuras", () => {
+        expect(sulfuras instanceof Sulfuras).toEqual(true);
+      });
 
-        expect(items[0].quality).toEqual(quality);
+      it("should have a name", () => {
+        expect(sulfuras.name).toEqual("Sulfuras, Hand of Ragnaros");
+      });
+
+      it("should have a sellIn", () => {
+        expect(sulfuras.sellIn).toEqual(sellIn);
+      });
+
+      it("should have a quality", () => {
+        expect(sulfuras.quality).toEqual(quality);
+      });
+    })
+
+    describe("#updateQuality", () => {
+      it("should not have it's sellIn date altered", () => {
+        expect(sulfuras.sellIn).toEqual(sellIn);
+      });
+
+      it("should not have it's quality altered", () => {
+        expect(sulfuras.quality).toEqual(quality);
       });
     })
   })
@@ -183,11 +204,6 @@ describe("Gilded Rose", () => {
 
         expect(items[0].quality).toEqual(0);
       });
-    })
-  })
-
-  describe("Shop", () => {
-    describe("#updateQuality", () => {
     })
   })
 });
