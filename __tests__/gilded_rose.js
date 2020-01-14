@@ -140,54 +140,54 @@ describe("Gilded Rose", () => {
     })
   })
 
-  describe("Shop", () => {
-
+  describe("Backstage Passes", () => {
     describe("#updateQuality", () => {
+      const sellIn = 2
+      const quality = 25
 
+      it("should have it's sellIn date decreased", () => {
+        const gildedRose = new Shop([ new BackstagePass(sellIn, quality) ]);
+        items = gildedRose.updateQuality()
 
-      describe("Backstage Passes", () => {
-        const sellIn = 2
-        const quality = 25
+        expect(items[0].sellIn).toEqual(sellIn - 1);
+      });
 
-        it("should have it's sellIn date decreased", () => {
-          const gildedRose = new Shop([ new BackstagePass(sellIn, quality) ]);
-          items = gildedRose.updateQuality()
+      it("should have it's quality increased by 1 if sellIn is greater than 10", () => {
+        const sellIn = 20
+        const gildedRose = new Shop([ new BackstagePass(sellIn, quality) ]);
+        items = gildedRose.updateQuality()
 
-          expect(items[0].sellIn).toEqual(sellIn - 1);
-        });
+        expect(items[0].quality).toEqual(quality + 1);
+      });
 
-        it("should have it's quality increased by 1 if sellIn is greater than 10", () => {
-          const sellIn = 20
-          const gildedRose = new Shop([ new BackstagePass(sellIn, quality) ]);
-          items = gildedRose.updateQuality()
+      it("should have it's quality incrased by 2 if its sellIn date is between 6 and 10", () => {
+        const sellIn = 6
+        const gildedRose = new Shop([ new BackstagePass(sellIn, quality) ]);
+        items = gildedRose.updateQuality()
 
-          expect(items[0].quality).toEqual(quality + 1);
-        });
+        expect(items[0].quality).toEqual(quality + 2);
+      });
 
-        it("should have it's quality incrased by 2 if its sellIn date is between 6 and 10", () => {
-          const sellIn = 6
-          const gildedRose = new Shop([ new BackstagePass(sellIn, quality) ]);
-          items = gildedRose.updateQuality()
+      it("should have it's quality incrased by 3 if its sellIn date is between 1 and 5", () => {
+        const sellIn = 4
+        const gildedRose = new Shop([ new BackstagePass(sellIn, quality) ]);
+        items = gildedRose.updateQuality()
 
-          expect(items[0].quality).toEqual(quality + 2);
-        });
+        expect(items[0].quality).toEqual(quality + 3);
+      });
 
-        it("should have it's quality incrased by 3 if its sellIn date is between 1 and 5", () => {
-          const sellIn = 4
-          const gildedRose = new Shop([ new BackstagePass(sellIn, quality) ]);
-          items = gildedRose.updateQuality()
+      it("should have it's quality drop to 0 if sellIn is less than or equal to 0", () => {
+        const sellIn = 0
+        const gildedRose = new Shop([ new BackstagePass(sellIn, quality) ]);
+        items = gildedRose.updateQuality()
 
-          expect(items[0].quality).toEqual(quality + 3);
-        });
+        expect(items[0].quality).toEqual(0);
+      });
+    })
+  })
 
-        it("should have it's quality drop to 0 if sellIn is less than or equal to 0", () => {
-          const sellIn = 0
-          const gildedRose = new Shop([ new BackstagePass(sellIn, quality) ]);
-          items = gildedRose.updateQuality()
-
-          expect(items[0].quality).toEqual(0);
-        });
-      })
+  describe("Shop", () => {
+    describe("#updateQuality", () => {
     })
   })
 });
