@@ -314,11 +314,11 @@ describe("Gilded Rose", () => {
 
     describe("#constructor", () => {
       it("should have an items array", () => {
-        expect(Array.isArray(items)).toEqual(true);
+        expect(Array.isArray(shop.items)).toEqual(true);
       });
 
-      it("should have all items in the items array", () => {
-        expect(items.length).toEqual(5);
+      it("should have all items passed into the constructor", () => {
+        expect(shop.items.length).toEqual(5);
       });
     })
 
