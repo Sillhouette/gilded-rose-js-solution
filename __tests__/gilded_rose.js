@@ -28,11 +28,11 @@ describe("Gilded Rose", () => {
   })
 
   describe("Sulfuras, Hand of Ragnaros", () => {
-    const sellIn = 10
-    const quality = 15
-    const sulfuras = new Sulfuras(sellIn, quality);
-
     describe("#constructor", () => {
+      const sellIn = 10
+      const quality = 15
+      const sulfuras = new Sulfuras(sellIn, quality);
+
       it("should be an instance of Item", () => {
         expect(sulfuras instanceof Item).toEqual(true);
       });
@@ -55,6 +55,10 @@ describe("Gilded Rose", () => {
     })
 
     describe("#updateQuality", () => {
+      const sellIn = 10
+      const quality = 15
+      const sulfuras = new Sulfuras(sellIn, quality);
+
       it("should not have it's sellIn date altered", () => {
         expect(sulfuras.sellIn).toEqual(sellIn);
       });
@@ -66,30 +70,53 @@ describe("Gilded Rose", () => {
   })
 
   describe("Aged Brie", () => {
+    describe("#constructor", () => {
+      const sellIn = 7
+      const quality = 5
+      const agedBrie = new AgedBrie(sellIn, quality);
+
+      it("should be an instance of Item", () => {
+        expect(agedBrie instanceof Item).toEqual(true);
+      });
+
+      it("should be an instance of Sulfuras", () => {
+        expect(agedBrie instanceof AgedBrie).toEqual(true);
+      });
+
+      it("should have a name", () => {
+        expect(agedBrie.name).toEqual("Aged Brie");
+      });
+
+      it("should have a sellIn", () => {
+        expect(agedBrie.sellIn).toEqual(sellIn);
+      });
+
+      it("should have a quality", () => {
+        expect(agedBrie.quality).toEqual(quality);
+      });
+    })
+
     describe("#updateQuality", () => {
       const sellIn = 7
       const quality = 5
+      const agedBrie = new AgedBrie(sellIn, quality);
+      agedBrie.updateQuality()
 
       it("should have it's sellIn date decreased", () => {
-        const gildedRose = new Shop([ new AgedBrie(sellIn, quality) ]);
-        items = gildedRose.updateQuality()
-
-        expect(items[0].sellIn).toEqual(sellIn - 1);
+        expect(agedBrie.sellIn).toEqual(sellIn - 1);
       });
 
       it("should have it's quality increased", () => {
-        const gildedRose = new Shop([ new AgedBrie(sellIn, quality) ]);
-        items = gildedRose.updateQuality()
-
-        expect(items[0].quality).toEqual(quality + 1);
+        expect(agedBrie.quality).toEqual(quality + 1);
       });
 
       it("should not have it's quality increased past 50", () => {
         const highQuality = 50
-        const gildedRose = new Shop([ new AgedBrie(sellIn, highQuality) ]);
-        items = gildedRose.updateQuality()
+        const highQualityBrie = new AgedBrie(sellIn, highQuality);
 
-        expect(items[0].quality).toEqual(highQuality);
+        highQualityBrie.updateQuality()
+
+        expect(highQualityBrie.quality).toEqual(highQuality);
       });
     })
   })
