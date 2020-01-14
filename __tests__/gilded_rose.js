@@ -102,8 +102,8 @@ describe("Gilded Rose", () => {
     })
   })
 
-  describe("#updateQuality", () => {
-    describe("Normal Items", () => {
+  describe("Normal Items", () => {
+    describe("#updateQuality", () => {
       const name = "A Very Normal Item"
       const sellIn = 7
       const quality = 11
