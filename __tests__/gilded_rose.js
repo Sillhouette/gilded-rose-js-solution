@@ -8,20 +8,21 @@ describe("Gilded Rose", () => {
   })
 
   describe("Item", () => {
+    const sellIn = 10
+    const quality = 15
+    const genericItem = new Item("foo", sellIn, quality);
+
     describe("#constructor", () => {
       it("should have a name", () => {
-        const genericItem = new Item("foo", 0, 0);
         expect(genericItem.name).toEqual("foo");
       });
 
       it("should have a sellIn", () => {
-        const genericItem = new Item("foo", 10, 0);
-        expect(genericItem.sellIn).toEqual(10);
+        expect(genericItem.sellIn).toEqual(sellIn);
       });
 
       it("should have a quality", () => {
-        const genericItem = new Item("foo", 10, 15);
-        expect(genericItem.quality).toEqual(15);
+        expect(genericItem.quality).toEqual(quality);
       });
     })
   })
