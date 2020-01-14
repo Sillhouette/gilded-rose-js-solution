@@ -79,7 +79,7 @@ describe("Gilded Rose", () => {
         expect(agedBrie instanceof Item).toEqual(true);
       });
 
-      it("should be an instance of Sulfuras", () => {
+      it("should be an instance of Aged Brie", () => {
         expect(agedBrie instanceof AgedBrie).toEqual(true);
       });
 
@@ -122,31 +122,54 @@ describe("Gilded Rose", () => {
   })
 
   describe("Conjured Items", () => {
+    describe("#constructor", () => {
+      const name = "Laptop"
+      const sellIn = 7
+      const quality = 5
+      const laptop = new ConjuredItem(name, sellIn, quality);
+
+      it("should be an instance of Item", () => {
+        expect(laptop instanceof Item).toEqual(true);
+      });
+
+      it("should be an instance of ConjuredItem", () => {
+        expect(laptop instanceof ConjuredItem).toEqual(true);
+      });
+
+      it("should have a name", () => {
+        expect(laptop.name).toEqual("Laptop");
+      });
+
+      it("should have a sellIn", () => {
+        expect(laptop.sellIn).toEqual(sellIn);
+      });
+
+      it("should have a quality", () => {
+        expect(laptop.quality).toEqual(quality);
+      });
+    })
+
     describe("#updateQuality", () => {
       const name = "Laptop"
       const sellIn = 7
       const quality = 5
+      const laptop = new ConjuredItem(name, sellIn, quality);
+      laptop.updateQuality()
 
       it("should have it's sellIn date decreased", () => {
-        const gildedRose = new Shop([ new ConjuredItem(name, sellIn, quality) ]);
-        items = gildedRose.updateQuality()
-
-        expect(items[0].sellIn).toEqual(sellIn - 1);
+        expect(laptop.sellIn).toEqual(sellIn - 1);
       });
 
       it("should have it's quality decreased by 2", () => {
-        const gildedRose = new Shop([ new ConjuredItem(name, sellIn, quality) ]);
-        items = gildedRose.updateQuality()
-
-        expect(items[0].quality).toEqual(quality - 2);
+        expect(laptop.quality).toEqual(quality - 2);
       });
 
       it("should not have it's quality decreased below 0", () => {
         const lowQuality = 1
-        const gildedRose = new Shop([ new ConjuredItem(name, sellIn, lowQuality) ]);
-        items = gildedRose.updateQuality()
+        const lowQualityLaptop = new ConjuredItem(name, sellIn, lowQuality);
+        lowQualityLaptop.updateQuality()
 
-        expect(items[0].quality).toEqual(0);
+        expect(lowQualityLaptop.quality).toEqual(0);
       });
     })
   })
