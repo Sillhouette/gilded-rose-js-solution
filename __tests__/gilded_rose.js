@@ -321,10 +321,5 @@ describe("Gilded Rose", () => {
         expect(shop.items.length).toEqual(5);
       });
     })
-
-    describe("#updateQuality", () => {
-      shop.updateQuality()
-
-    })
   })
 });
