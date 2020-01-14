@@ -43,63 +43,38 @@ describe("Gilded Rose", () => {
     })
   })
 
-  describe("Shop", () => {
+  describe("Aged Brie", () => {
     describe("#updateQuality", () => {
+      const sellIn = 7
+      const quality = 5
 
-      describe("Aged Brie", () => {
-        const sellIn = 7
-        const quality = 5
+      it("should have it's sellIn date decreased", () => {
+        const gildedRose = new Shop([ new AgedBrie(sellIn, quality) ]);
+        items = gildedRose.updateQuality()
 
-        it("should have it's sellIn date decreased", () => {
-          const gildedRose = new Shop([ new AgedBrie(sellIn, quality) ]);
-          items = gildedRose.updateQuality()
+        expect(items[0].sellIn).toEqual(sellIn - 1);
+      });
 
-          expect(items[0].sellIn).toEqual(sellIn - 1);
-        });
+      it("should have it's quality increased", () => {
+        const gildedRose = new Shop([ new AgedBrie(sellIn, quality) ]);
+        items = gildedRose.updateQuality()
 
-        it("should have it's quality increased", () => {
-          const gildedRose = new Shop([ new AgedBrie(sellIn, quality) ]);
-          items = gildedRose.updateQuality()
+        expect(items[0].quality).toEqual(quality + 1);
+      });
 
-          expect(items[0].quality).toEqual(quality + 1);
-        });
+      it("should not have it's quality increased past 50", () => {
+        const highQuality = 50
+        const gildedRose = new Shop([ new AgedBrie(sellIn, highQuality) ]);
+        items = gildedRose.updateQuality()
 
-        it("should not have it's quality increased past 50", () => {
-          const highQuality = 50
-          const gildedRose = new Shop([ new AgedBrie(sellIn, highQuality) ]);
-          items = gildedRose.updateQuality()
+        expect(items[0].quality).toEqual(highQuality);
+      });
+    })
+  })
 
-          expect(items[0].quality).toEqual(highQuality);
-        });
-      })
+  describe("Shop", () => {
 
-      describe("Conjured Items", () => {
-        const name = "Laptop"
-        const sellIn = 7
-        const quality = 5
-
-        it("should have it's sellIn date decreased", () => {
-          const gildedRose = new Shop([ new ConjuredItem(name, sellIn, quality) ]);
-          items = gildedRose.updateQuality()
-
-          expect(items[0].sellIn).toEqual(sellIn - 1);
-        });
-
-        it("should have it's quality decreased by 2", () => {
-          const gildedRose = new Shop([ new ConjuredItem(name, sellIn, quality) ]);
-          items = gildedRose.updateQuality()
-
-          expect(items[0].quality).toEqual(quality - 2);
-        });
-
-        it("should not have it's quality decreased below 0", () => {
-          const lowQuality = 1
-          const gildedRose = new Shop([ new ConjuredItem(name, sellIn, lowQuality) ]);
-          items = gildedRose.updateQuality()
-
-          expect(items[0].quality).toEqual(0);
-        });
-      })
+    describe("#updateQuality", () => {
 
       describe("Normal Items", () => {
         const name = "A Very Normal Item"
